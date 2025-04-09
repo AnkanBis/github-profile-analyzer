@@ -10,12 +10,6 @@ import { Building2, MapPin } from 'lucide-react';
 import GitHubCalendar from 'react-github-calendar';
 
 
-interface UserCardProps {
-    showCard?: boolean;
-    setShowCard?: React.Dispatch<React.SetStateAction<boolean>>;
-    user?: string;
-    setUser?: React.Dispatch<React.SetStateAction<string>>;
-}
 
 export default function App() {
 
@@ -31,7 +25,11 @@ export default function App() {
     );
 }
 
-const InputForm = ({ setShowCard, user, setUser }: UserCardProps) => {
+const InputForm = ({ setShowCard, user, setUser }: {
+    setShowCard: React.Dispatch<React.SetStateAction<boolean>>;
+    user: string;
+    setUser: React.Dispatch<React.SetStateAction<string>>;
+}) => {
 
     const setCurrentUser = useSetRecoilState(currentUserAtom)
     const handleSubmit = async () => {
@@ -63,7 +61,12 @@ const InputForm = ({ setShowCard, user, setUser }: UserCardProps) => {
     )
 }
 
-const ProfileCard = ({ user, setUser, setShowCard }) => {
+const ProfileCard = ({ user, setUser, setShowCard }: {
+    user: string;
+    setUser: React.Dispatch<React.SetStateAction<string>>;
+    setShowCard: React.Dispatch<React.SetStateAction<boolean>>;
+
+}) => {
     const currUser = useRecoilValue(currentUserAtom);
     if (!currUser) return;
     console.log(currUser)
@@ -108,7 +111,7 @@ const ProfileCard = ({ user, setUser, setShowCard }) => {
 
 }
 
-const UserInfo = ({ user }) => {
+const UserInfo = ({ user }: { user: string; }) => {
     const currUser = useRecoilValue(currentUserAtom);
     if (!currUser) return null;
 
